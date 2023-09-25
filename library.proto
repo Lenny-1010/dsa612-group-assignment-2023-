@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package library;
+
+message Book {
+    string isbn = 1;
+    string title = 2;
+    string author_1 = 3;
+    string author_2 = 4;
+    string location = 5;
+    bool available = 6;
+}
+
+message User {
+    int32 user_id = 1;
+    string user_type = 2; // "student" or "librarian"
+}
+
+service LibraryService {
+    rpc addBook (Book) returns (string);
+    rpc createUsers (stream User) returns (User);
+    rpc updateBook (Book) returns (Book);
+    rpc removeBook (string) returns (repeated Book);
+    rpc listAvailableBooks (User) returns (stream Book);
+    rpc locateBook (string) returns (string);
+    rpc borrowBook (User) returns (string);
+}
